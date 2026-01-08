@@ -109,18 +109,12 @@ export default async function Home() {
       <h1>Bakery Items</h1>
 
       <ul>
-        {data.docs.map((item: any) => (
+        {Array.isArray(data?.docs) &&
+        data.docs.map((item: any) => (
           <li key={item.id}>
-            <p>
-              {item.name} – ₹{item.price}
-            </p>
-
+            <p>{item.name} – ₹{item.price}</p>
             {item.image?.url && (
-              <img
-                src={item.image.url}
-                alt={item.name}
-                width={200}
-              />
+              <img src={item.image.url} alt={item.name} width={200} />
             )}
           </li>
         ))}
