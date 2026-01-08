@@ -1,4 +1,4 @@
-import { headers as getHeaders } from 'next/headers.js'
+/*import { headers as getHeaders } from 'next/headers.js'
 import Image from 'next/image'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -56,4 +56,60 @@ export default async function HomePage() {
       </div>
     </div>
   )
+}*/
+
+/*export default async function Home() {
+  const res = await fetch('http://localhost:3000/api/bakery-items', {
+    cache: 'no-store',
+  })
+
+  const data = await res.json()
+
+  return (
+    <main>
+      <h1>Bakery Items</h1>
+      <ul>
+        {data.docs.map((item: any) => (
+          <li key={item.id}>
+            {item.name} - ₹{item.price}
+          </li>
+        ))}
+      </ul>
+    </main>
+  )
+}*/
+
+export default async function Home() {
+  const res = await fetch(
+    'http://localhost:3000/api/bakery-items?depth=1',
+    { cache: 'no-store' }
+  )
+
+  const data = await res.json()
+
+  return (
+    <main>
+      <h1>Bakery Items</h1>
+
+      <ul>
+        {data.docs.map((item: any) => (
+          <li key={item.id}>
+            <p>
+              {item.name} – ₹{item.price}
+            </p>
+
+            {item.image?.url && (
+              <img
+                src={item.image.url}
+                alt={item.name}
+                width={200}
+              />
+            )}
+          </li>
+        ))}
+      </ul>
+    </main>
+  )
 }
+
+

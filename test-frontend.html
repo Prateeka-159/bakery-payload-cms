@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Bakery Items</h1>
+    <ul id="list"></ul>
+
+    <script>
+      fetch('http://localhost:3000/api/bakery-items')
+        .then(res => res.json())
+        .then(data => {
+          const list = document.getElementById('list')
+          data.docs.forEach(item => {
+            const li = document.createElement('li')
+            li.innerText = `${item.name} - ₹${item.price}`
+            list.appendChild(li)
+          })
+        })
+    </script>
+  </body>
+</html>
