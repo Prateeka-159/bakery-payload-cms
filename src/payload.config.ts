@@ -19,6 +19,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL,
   collections: [
     Users, 
     Media, 
