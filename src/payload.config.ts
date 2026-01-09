@@ -8,6 +8,8 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import BakeryItems from './collections/bakeryItems'
+import { Home } from './globals/Home'
+import { About } from './globals/About'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,7 +25,12 @@ export default buildConfig({
   collections: [
     Users, 
     Media, 
-    BakeryItems],
+    BakeryItems
+  ],
+  globals: [
+    Home,
+    About,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

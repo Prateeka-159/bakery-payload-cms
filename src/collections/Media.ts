@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload'
 export const Media: CollectionConfig = {
   slug: 'media',
   upload: {
-    disableLocalStorage: true,
+    disableLocalStorage: true, 
   },
   access: {
     read: () => true,
