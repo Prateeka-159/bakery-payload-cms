@@ -48,6 +48,11 @@ export default async function AboutUs(){
     })
     const about = await aboutRes.json()
 
+    const footerRes = await fetch(`${baseURL}/api/globals/footer`, {
+      cache: 'no-store',
+    })
+    const footer = await footerRes.json()
+
     return(
       <main>
         <h1>{home.heroTitle}</h1>
@@ -58,6 +63,10 @@ export default async function AboutUs(){
         <h2>{about.title}</h2>
         <RichText data = {about.text} />
     
+        <p>{footer.address}</p>
+        <p>{footer.email}</p>
+        <p>{footer.phone}</p>
+        <p>{footer.copyright}</p>
       </main>
     )
 }

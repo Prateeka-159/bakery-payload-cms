@@ -10,6 +10,7 @@ import { Media } from './collections/Media'
 import BakeryItems from './collections/bakeryItems'
 import { Home } from './globals/Home'
 import { About } from './globals/About'
+import { Footer } from './globals/Footer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -30,6 +31,7 @@ export default buildConfig({
   globals: [
     Home,
     About,
+    Footer,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
