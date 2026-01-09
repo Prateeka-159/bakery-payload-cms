@@ -30,35 +30,36 @@
   )
 }*/
 
-export default async function HomePage() {
+import { RichText } from '@payloadcms/richtext-lexical/react'
+
+export default async function AboutUs(){
   const baseURL =
-    process.env.NODE_ENV === 'production'
+    process.env.NODE_ENV  === 'production'
       ? process.env.NEXT_PUBLIC_SERVER_URL
       : 'http://localhost:3000'
 
-  // Fetch Home Global
-  const res = await fetch(`${baseURL}/api/globals/home`, {
-    cache: 'no-store',
-  })
+    const homeRes = await fetch(`${baseURL}/api/globals/home`, {
+      cache: 'no-store',
+    })
+    const home = await homeRes.json()
 
-  const home = await res.json()
+    const aboutRes = await fetch(`${baseURL}/api/globals/about`, {
+      cache: 'no-store',
+    })
+    const about = await aboutRes.json()
 
-  return (
-    <main>
-      <h1>{home.heroTitle}</h1>
-      <p>{home.heroDescription}</p>
-      {home.bannerImage?.url && (
-        <img
-          src={home.bannerImage.url}
-          alt="Banner"
-          style={{ width: '400px', marginTop: '20px' }}
-        />
-      )}
-      {home.ctaText && (
+    return(
+      <main>
+        <h1>{home.heroTitle}</h1>
+        <p>{home.heroDescription}</p>
         <button>{home.ctaText}</button>
-      )}
-    </main>
-  )
+        <hr style={{margin: '40px 0'}} />
+
+        <h2>{about.title}</h2>
+        <RichText data = {about.text} />
+    
+      </main>
+    )
 }
 
 
