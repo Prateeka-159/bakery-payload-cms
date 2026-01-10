@@ -69,7 +69,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
-    'bakery-items': BakeryItem;
+    items: Item;
+    orders: Order;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -79,7 +80,8 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    'bakery-items': BakeryItemsSelect<false> | BakeryItemsSelect<true>;
+    items: ItemsSelect<false> | ItemsSelect<true>;
+    orders: OrdersSelect<false> | OrdersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -93,11 +95,13 @@ export interface Config {
     home: Home;
     about: About;
     footer: Footer;
+    header: Header;
   };
   globalsSelect: {
     home: HomeSelect<false> | HomeSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    header: HeaderSelect<false> | HeaderSelect<true>;
   };
   locale: null;
   user: User & {
@@ -172,15 +176,32 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bakery-items".
+ * via the `definition` "items".
  */
-export interface BakeryItem {
+export interface Item {
   id: string;
   name: string;
   description?: string | null;
   image?: (string | null) | Media;
   price: number;
   available?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: string;
+  customerName: string;
+  items: {
+    item: string | Item;
+    quantity: number;
+    id?: string | null;
+  }[];
+  totalPrice?: number | null;
+  status: 'Pending' | 'paid' | 'delivered';
   updatedAt: string;
   createdAt: string;
 }
@@ -217,8 +238,12 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
-        relationTo: 'bakery-items';
-        value: string | BakeryItem;
+        relationTo: 'items';
+        value: string | Item;
+      } | null)
+    | ({
+        relationTo: 'orders';
+        value: string | Order;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -305,14 +330,32 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bakery-items_select".
+ * via the `definition` "items_select".
  */
-export interface BakeryItemsSelect<T extends boolean = true> {
+export interface ItemsSelect<T extends boolean = true> {
   name?: T;
   description?: T;
   image?: T;
   price?: T;
   available?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders_select".
+ */
+export interface OrdersSelect<T extends boolean = true> {
+  customerName?: T;
+  items?:
+    | T
+    | {
+        item?: T;
+        quantity?: T;
+        id?: T;
+      };
+  totalPrice?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -409,6 +452,23 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: string;
+  logoText: string;
+  navLinks?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home_select".
  */
 export interface HomeSelect<T extends boolean = true> {
@@ -440,6 +500,23 @@ export interface FooterSelect<T extends boolean = true> {
   email?: T;
   phone?: T;
   copyright?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  logoText?: T;
+  navLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

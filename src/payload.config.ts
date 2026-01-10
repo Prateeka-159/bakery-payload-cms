@@ -7,10 +7,12 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
-import BakeryItems from './collections/bakeryItems'
+import { Items } from './collections/Items.collection'
 import { Home } from './globals/Home'
 import { About } from './globals/About'
 import { Footer } from './globals/Footer'
+import { Header } from './globals/Header'
+import { Orders } from './collections/Orders'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,12 +28,14 @@ export default buildConfig({
   collections: [
     Users, 
     Media, 
-    BakeryItems
+    Items,
+    Orders,
   ],
   globals: [
     Home,
     About,
     Footer,
+    Header,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

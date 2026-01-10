@@ -1,7 +1,7 @@
 import { CollectionConfig } from 'payload'
 
-const BakeryItems: CollectionConfig = {
-    slug: 'bakery-items',
+export const Items: CollectionConfig = {
+    slug: 'items',
     admin: {
         useAsTitle: 'name',
     },
@@ -39,4 +39,3 @@ const BakeryItems: CollectionConfig = {
     ],
 }
 
-export default BakeryItems
