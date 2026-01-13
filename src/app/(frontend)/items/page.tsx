@@ -44,7 +44,7 @@ export default async function Items() {
   }
 
   return (
-    <main style={{ backgroundColor: '#fdfbf7', minHeight: '100vh', padding: '2rem 0' }}>
+    <main style={{ backgroundColor: '#fefce8', minHeight: '100vh', padding: '2rem 0' }}>
       <h1 style={{ textAlign: 'center', fontSize: '3rem', marginBottom: '2rem', color: '#1a1a1a' }}>
         Fresh From the Oven
       </h1>

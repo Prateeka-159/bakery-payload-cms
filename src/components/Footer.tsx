@@ -33,11 +33,11 @@ export default async function Footer(){
                             </p>
                             <p className="flex items-center">
                                 <span className="mr-2">📧</span>
-                                <a href={`mailto:${footer.email}`} className="hover:text-white transition-colors">{footer.email}</a>
+                                <a href={`mailto:${footer.email}`} className="hover:text-yellow-400 transition-colors">{footer.email}</a>
                             </p>
                             <p className="flex items-center">
                                 <span className="mr-2">📞</span>
-                                <a href={`tel:${footer.phone}`} className="hover:text-white transition-colors">{footer.phone}</a>
+                                <a href={`tel:${footer.phone}`} className="hover:text-yellow-400 transition-colors">{footer.phone}</a>
                             </p>
                         </div>
                     </div>
@@ -46,9 +46,9 @@ export default async function Footer(){
                     <div>
                         <h3 className="text-white text-lg font-semibold mb-4">Quick Links</h3>
                         <ul className="space-y-2">
-                            <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
-                            <li><a href="/items" className="hover:text-white transition-colors">Menu</a></li>
-                            <li><a href="/about" className="hover:text-white transition-colors">About Us</a></li>
+                            <li><a href="/" className="text-gray-400 hover:text-yellow-400 transition-colors">Home</a></li>
+                            <li><a href="/items" className="text-gray-400 hover:text-yellow-400 transition-colors">Menu</a></li>
+                            <li><a href="/about" className="text-gray-400 hover:text-yellow-400 transition-colors">About Us</a></li>
                         </ul>
                     </div>
 
@@ -64,7 +64,7 @@ export default async function Footer(){
                     </div>
                 </div>
                 <div className="mt-12 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
-                    &copy; {new Date().getFullYear()} Bakery CMS. All rights reserved.
+                    &copy; {new Date().getFullYear()} Honeybee. All rights reserved.
                 </div>
             </div>
         </footer>

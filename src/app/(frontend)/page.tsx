@@ -1,3 +1,7 @@
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import AnimatedBee from '@/components/AnimatedBee'
+
 export default async function Home(){
   const baseURL =
     process.env.NODE_ENV  === 'production'
@@ -21,7 +25,10 @@ export default async function Home(){
 
   return(
     <main>
-      <section className="relative bg-orange-50 py-32 sm:py-48 lg:py-56 overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative bg-yellow-50 py-32 sm:py-48 lg:py-56 overflow-hidden">
+        {/* Animated Bee */}
+        <AnimatedBee />
         {/* Background Image with Gradient Mask */}
         {home.bannerImage?.url && (
             <div className="absolute inset-0 z-0">
@@ -29,7 +36,7 @@ export default async function Home(){
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 sm:opacity-80 translate-x-1/3 sm:translate-x-1/4"
                     style={{ backgroundImage: `url(${home.bannerImage.url})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-50 via-orange-50/90 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-50 via-yellow-50/90 to-transparent"></div>
             </div>
         )}
 
@@ -45,7 +52,7 @@ export default async function Home(){
                 {home.heroDescription}
             </p>
             <div className="flex justify-start gap-4">
-                <a href="/items" className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                <a href="/items" className="inline-block bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-4 px-10 rounded-full text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
                     {home.ctaText}
                 </a>
             </div>
@@ -58,17 +65,17 @@ export default async function Home(){
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold text-gray-900 mb-12">Why Choose Us?</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div className="p-6 rounded-2xl bg-orange-50">
+                <div className="p-6 rounded-2xl bg-yellow-50">
                     <div className="text-4xl mb-4">🥐</div>
                     <h3 className="text-xl font-bold mb-2">Freshly Baked</h3>
                     <p className="text-gray-600">Every item is baked fresh daily using the finest ingredients.</p>
                 </div>
-                <div className="p-6 rounded-2xl bg-orange-50">
+                <div className="p-6 rounded-2xl bg-yellow-50">
                     <div className="text-4xl mb-4">🚚</div>
                     <h3 className="text-xl font-bold mb-2">Fast Delivery</h3>
                     <p className="text-gray-600">From our oven to your doorstep in no time.</p>
                 </div>
-                <div className="p-6 rounded-2xl bg-orange-50">
+                <div className="p-6 rounded-2xl bg-yellow-50">
                     <div className="text-4xl mb-4">❤️</div>
                     <h3 className="text-xl font-bold mb-2">Made with Love</h3>
                     <p className="text-gray-600">Passion runs through every recipe we create.</p>

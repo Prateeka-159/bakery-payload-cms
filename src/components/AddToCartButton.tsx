@@ -29,22 +29,14 @@ export default function AddToCartButton({ item }: { item: Item }) {
   return (
     <button
       onClick={handleAddToCart}
-      style={{
-        marginTop: '1rem',
-        padding: '0.75rem 1.5rem',
-        backgroundColor: isAdded ? '#16a34a' : '#ea580c', // Green if added, Orange-600 otherwise
-        color: '#fff',
-        border: 'none',
-        borderRadius: '9999px',
-        fontWeight: 600,
-        cursor: 'pointer',
-        transition: 'all 0.2s',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
-      }}
-      onMouseOver={(e) => !isAdded && (e.currentTarget.style.backgroundColor = '#c2410c')}
-      onMouseOut={(e) => !isAdded && (e.currentTarget.style.backgroundColor = '#ea580c')}
+      className={`w-full font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-all shadow-sm
+        ${isAdded
+          ? 'bg-green-600 hover:bg-green-700 text-white'
+          : 'bg-yellow-500 hover:bg-yellow-400 text-black'
+        }`}
     >
-      {isAdded ? 'Added to Cart!' : `Add to Cart — ₹${item.price}`}
+      <span>{isAdded ? 'Added!' : 'Add to Cart'}</span>
+      <span className="text-xl">{isAdded ? '✓' : '+'}</span>
     </button>
   )
 }

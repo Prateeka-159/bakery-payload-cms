@@ -43,7 +43,7 @@ export default function CartSummary() {
         <p className="text-gray-500 mb-4">Add some delicious items from the menu!</p>
         <a 
           href="/items" 
-          className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-6 rounded-full transition-colors"
+          className="inline-block bg-yellow-500 hover:bg-yellow-400 text-black font-medium py-2 px-6 rounded-full transition-colors"
         >
           Browse Menu
         </a>
@@ -108,7 +108,7 @@ export default function CartSummary() {
         <div className="border-t border-gray-100 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="text-center sm:text-left">
                 <span className="text-gray-500 text-sm uppercase tracking-wider font-semibold">Total Amount</span>
-                <p className="text-3xl font-extrabold text-orange-600">₹{totalPrice}</p>
+                <p className="text-3xl font-extrabold text-yellow-600">₹{totalPrice}</p>
             </div>
             
             <button

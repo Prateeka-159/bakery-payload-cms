@@ -4,8 +4,8 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #fdfbf7; /* Creamy background */
-  background-image: radial-gradient(at 50% 50%, #fdfbf7 0%, #f2efe9 100%);
+  background: #fefce8; /* Yellow background */
+  background-image: radial-gradient(at 50% 50%, #fefce8 0%, #fef3c7 100%);
   font-family: 'Inter', sans-serif;
 }
 
@@ -64,15 +64,15 @@
 
 .input:focus {
   outline: none;
-  border-color: #d4a373; /* Bakery Gold */
-  box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.1);
+  border-color: #eab308; /* Yellow */
+  box-shadow: 0 0 0 4px rgba(234, 179, 8, 0.1);
 }
 
 .button {
   width: 100%;
   padding: 1rem;
-  background: #1a1a1a;
-  color: white;
+  background: #eab308; /* Yellow */
+  color: #000; /* Black text */
   border: none;
   border-radius: 12px;
   font-size: 1rem;

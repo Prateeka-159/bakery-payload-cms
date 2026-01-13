@@ -23,7 +23,7 @@ export default async function AboutUs() {
 
     return(
         <main className="bg-white min-h-screen">
-             <div className="bg-orange-50 py-16">
+             <div className="bg-yellow-50 py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900">{about.title}</h1>
                 </div>

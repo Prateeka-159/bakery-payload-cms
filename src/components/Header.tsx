@@ -27,8 +27,8 @@ export default async function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <a href="/" className="text-2xl font-extrabold text-orange-600 tracking-tight hover:text-orange-500 transition-colors">
-              {header.logoText}
+            <a href="/" className="text-2xl font-extrabold text-yellow-500 tracking-tight hover:text-yellow-400 transition-colors flex items-center gap-2">
+              <span className="text-3xl">🐝</span> {header.logoText === 'Backery' ? 'Honeybee' : header.logoText}
             </a>
           </div>
 
@@ -38,7 +38,7 @@ export default async function Header() {
               <a
                 key={i}
                 href={link.url}
-                className="text-gray-600 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
                 {link.label}
               </a>

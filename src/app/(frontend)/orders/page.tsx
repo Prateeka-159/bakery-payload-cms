@@ -26,7 +26,7 @@ export default async function OrdersPage() {
   })
 
   return (
-    <main className="bg-gray-50 min-h-screen py-12">
+    <main className="bg-yellow-50 min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">My Orders</h1>
 
@@ -58,7 +58,7 @@ export default async function OrdersPage() {
                     </div>
                     <div>
                         <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Total</span>
-                        <p className="text-sm font-bold text-orange-600">₹{order.totalPrice}</p>
+                        <p className="text-sm font-bold text-yellow-600">₹{order.totalPrice}</p>
                     </div>
                     <div>
                         <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 
