@@ -9,31 +9,8 @@ export default function CartSummary() {
   const [isProcessing, setIsProcessing] = useState(false)
   const router = useRouter()
 
-  const handleCheckout = async () => {
-    setIsProcessing(true)
-    try {
-      const res = await fetch('/api/create-order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ items }),
-      })
-
-      if (res.ok) {
-        clearCart()
-        router.refresh() // Refresh server component (Order History)
-        alert('Order placed successfully!')
-      } else {
-        const data = await res.json()
-        alert(`Checkout failed: ${data.message}`)
-      }
-    } catch (error) {
-      console.error('Checkout error:', error)
-      alert('An error occurred during checkout.')
-    } finally {
-      setIsProcessing(false)
-    }
+  const handleCheckout = () => {
+    router.push('/checkout')
   }
 
   if (items.length === 0) {
@@ -113,10 +90,9 @@ export default function CartSummary() {
             
             <button
                 onClick={handleCheckout}
-                disabled={isProcessing}
-                className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all"
             >
-                {isProcessing ? 'Processing Payment...' : 'Proceed to Payment'}
+                Proceed to Delivery Details
             </button>
         </div>
       </div>

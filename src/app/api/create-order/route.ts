@@ -12,16 +12,15 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
     }
 
-    const { items } = await req.json()
+    const { items, customerName, address, pincode, phoneNumber } = await req.json()
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json({ message: 'Items are required' }, { status: 400 })
     }
 
-    // Assuming totalPrice is calculated or provided elsewhere,
-    // for this edit, we'll just add it as a field.
-    // For example: const totalPrice = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const totalPrice = 0; // Placeholder, replace with actual calculation if needed
+    if (!customerName || !address || !pincode || !phoneNumber) {
+      return NextResponse.json({ message: 'Delivery details are required' }, { status: 400 })
+    }
 
     const order = await payload.create({
       collection: 'orders',
@@ -31,9 +30,25 @@ export async function POST(req: Request) {
             item: item.id,
             quantity: item.quantity,
         })),
-        totalPrice,
-        status: 'paid', // Default to paid as per new business logic
-      },
+        customerName,
+        address,
+        pincode,
+        phoneNumber,
+        status: 'confirmed' as any, // Cast to any because types might be out of sync
+      } as any,
+    })
+
+    // Create a delivery record for the admin to track
+    await payload.create({
+      collection: 'deliveries' as any,
+      data: {
+        order: order.id,
+        deliveryStatus: 'pending',
+        customerName,
+        deliveryAddress: address,
+        pincode,
+        phoneNumber,
+      } as any,
     })
 
     return NextResponse.json({ message: 'Order created successfully', order }, { status: 201 })

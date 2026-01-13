@@ -13,6 +13,7 @@ import { About } from './globals/About'
 import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
 import { Orders } from './collections/Orders'
+import { Deliveries } from './collections/Deliveries'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -30,6 +31,7 @@ export default buildConfig({
     Media, 
     Items,
     Orders,
+    Deliveries,
   ],
   globals: [
     Home,

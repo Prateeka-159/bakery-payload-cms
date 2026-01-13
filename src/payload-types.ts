@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     items: Item;
     orders: Order;
+    deliveries: Delivery;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -82,6 +83,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     items: ItemsSelect<false> | ItemsSelect<true>;
     orders: OrdersSelect<false> | OrdersSelect<true>;
+    deliveries: DeliveriesSelect<false> | DeliveriesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -201,7 +203,27 @@ export interface Order {
     id?: string | null;
   }[];
   totalPrice?: number | null;
-  status?: ('pending' | 'paid' | 'delivered') | null;
+  customerName: string;
+  phoneNumber: string;
+  address: string;
+  pincode: string;
+  status?: ('pending' | 'confirmed' | 'paid' | 'delivered' | 'cancelled') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "deliveries".
+ */
+export interface Delivery {
+  id: string;
+  order: string | Order;
+  deliveryStatus: 'pending' | 'out_for_delivery' | 'delivered' | 'failed';
+  customerName?: string | null;
+  phoneNumber?: string | null;
+  deliveryAddress?: string | null;
+  pincode?: string | null;
+  notes?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -244,6 +266,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'orders';
         value: string | Order;
+      } | null)
+    | ({
+        relationTo: 'deliveries';
+        value: string | Delivery;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -355,7 +381,26 @@ export interface OrdersSelect<T extends boolean = true> {
         id?: T;
       };
   totalPrice?: T;
+  customerName?: T;
+  phoneNumber?: T;
+  address?: T;
+  pincode?: T;
   status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "deliveries_select".
+ */
+export interface DeliveriesSelect<T extends boolean = true> {
+  order?: T;
+  deliveryStatus?: T;
+  customerName?: T;
+  phoneNumber?: T;
+  deliveryAddress?: T;
+  pincode?: T;
+  notes?: T;
   updatedAt?: T;
   createdAt?: T;
 }

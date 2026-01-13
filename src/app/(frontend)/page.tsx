@@ -11,7 +11,7 @@ export default async function Home(){
   let home: any = null
 
   try {
-    const homeRes = await fetch(`${baseURL}/api/globals/home`, {
+    const homeRes = await fetch(`${baseURL}/api/globals/home?depth=2`, {
       cache: 'no-store',
     })
     if (homeRes.ok) {

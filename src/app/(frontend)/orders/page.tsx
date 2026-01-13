@@ -5,6 +5,7 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import CartSummary from './CartSummary'
+import CancelOrderButton from './CancelOrderButton'
 
 export default async function OrdersPage() {
   const payload = await getPayload({ config: configPromise })
@@ -64,9 +65,13 @@ export default async function OrdersPage() {
                         <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 
                         ${order.status === 'delivered' ? 'bg-green-100 text-green-800' : 
                             order.status === 'paid' ? 'bg-blue-100 text-blue-800' : 
+                            order.status === 'cancelled' ? 'bg-red-100 text-red-800' : 
                             'bg-yellow-100 text-yellow-800'}`}>
                         {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                         </span>
+                    </div>
+                    <div>
+                        <CancelOrderButton orderId={order.id} status={order.status} />
                     </div>
                     </div>
                     
