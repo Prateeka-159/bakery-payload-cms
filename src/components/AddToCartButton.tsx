@@ -1,64 +1,50 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useCart } from '@/context/CartContext'
 
 interface Item {
   id: string
   name: string
   price: number
+  image?: { url: string }
 }
 
 export default function AddToCartButton({ item }: { item: Item }) {
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
+  const { addItem } = useCart()
+  const [isAdded, setIsAdded] = useState(false)
 
-  const handleBuy = async () => {
-    setLoading(true)
-    try {
-      // Check if user is logged in
-      const res = await fetch('/api/users/me')
-      const data = await res.json()
-
-      // In Payload, if no user is logged in, 'user' is null or undefined
-      if (!data?.user) {
-        // Not logged in -> Redirect to Login
-        const currentPath = window.location.pathname
-        router.push(`/login?redirect=${currentPath}`)
-        return
-      }
-
-      // User IS logged in -> Proceed with "Buy" (Mock logic for now)
-      alert(`Successfully added ${item.name} to your order!`)
-      // Here you would typically add to a Context Cart or call an API to create an Order
-      
-    } catch (error) {
-      console.error('Auth check failed', error)
-    } finally {
-      setLoading(false)
-    }
+  const handleAddToCart = () => {
+    addItem({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: 1,
+        image: item.image?.url
+    })
+    setIsAdded(true)
+    setTimeout(() => setIsAdded(false), 2000)
   }
 
   return (
     <button
-      onClick={handleBuy}
-      disabled={loading}
+      onClick={handleAddToCart}
       style={{
         marginTop: '1rem',
         padding: '0.75rem 1.5rem',
-        backgroundColor: '#d4a373', // Bakery Gold
+        backgroundColor: isAdded ? '#16a34a' : '#ea580c', // Green if added, Orange-600 otherwise
         color: '#fff',
         border: 'none',
-        borderRadius: '8px',
+        borderRadius: '9999px',
         fontWeight: 600,
-        cursor: loading ? 'not-allowed' : 'pointer',
+        cursor: 'pointer',
         transition: 'all 0.2s',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
       }}
-      onMouseOver={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
-      onMouseOut={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
+      onMouseOver={(e) => !isAdded && (e.currentTarget.style.backgroundColor = '#c2410c')}
+      onMouseOut={(e) => !isAdded && (e.currentTarget.style.backgroundColor = '#ea580c')}
     >
-      {loading ? 'Checking...' : `Add to Order — ₹${item.price}`}
+      {isAdded ? 'Added to Cart!' : `Add to Cart — ₹${item.price}`}
     </button>
   )
 }

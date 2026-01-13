@@ -1,32 +1,57 @@
+import CartLink from './CartLink'
+
 export default async function Header() {
   const baseURL =
     process.env.NODE_ENV === 'production'
       ? process.env.NEXT_PUBLIC_SERVER_URL
       : 'http://localhost:3000'
 
-  const res = await fetch(`${baseURL}/api/globals/header`, {
-    cache: 'no-store',
-  })
-  if (!res.ok) {
-      return <p>Failed to load items</p>
+  let header: any = null
+
+  try {
+    const res = await fetch(`${baseURL}/api/globals/header`, {
+      cache: 'no-store',
+    })
+    if (res.ok) {
+      header = await res.json()
+    }
+  } catch (error) {
+    console.error('Failed to fetch header', error)
   }
-  const header: any = await res.json()
+
+  if (!header) return null
 
   return (
-    <header style={{ padding: '20px', borderBottom: '1px solid #333' }}>
-      <strong>{header.logoText}</strong>
+    <header className="bg-black shadow-sm sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0 flex items-center">
+            <a href="/" className="text-2xl font-extrabold text-orange-600 tracking-tight hover:text-orange-500 transition-colors">
+              {header.logoText}
+            </a>
+          </div>
 
-      <nav style={{ marginTop: '10px' }}>
-        {header.navLinks?.map((link: any, i: number) => (
-          <a
-            key={i}
-            href={link.url}
-            style={{ marginRight: '15px' }}
-          >
-            {link.label}
-          </a>
-        ))}
-      </nav>
+          {/* Navigation */}
+          <nav className="hidden md:flex space-x-8 items-center">
+            {header.navLinks?.map((link: any, i: number) => (
+              <a
+                key={i}
+                href={link.url}
+                className="text-gray-600 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+             <CartLink />
+          </nav>
+          
+           {/* Mobile menu button placeholder (optional) */}
+           <div className="md:hidden">
+              {/* Mobile menu icon implementation could go here */}
+           </div>
+        </div>
+      </div>
     </header>
   )
 }

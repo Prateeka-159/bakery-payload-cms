@@ -77,7 +77,7 @@ export default async function Items() {
                     <h2 style={{ fontSize: '1.25rem', margin: 0 }}>{item.name}</h2>
                     <span style={{ fontWeight: 'bold', color: '#d4a373' }}>₹{item.price}</span>
                 </div>
-                <p style={{ color: '#666', fontSize: '0.9rem', lineHeight: '1.5', margin: '0 0 1rem 0' }}>
+                <p style={{ color: '#666', fontSize: '0.9rem', lineHeight: '1.5', margin: '0 0 1rem 0', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
                   {item.description}
                 </p>
               </div>
