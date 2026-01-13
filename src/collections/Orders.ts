@@ -1,100 +1,115 @@
 import { CollectionConfig } from 'payload'
 
 export const Orders: CollectionConfig = {
-    slug: 'orders',
-    admin: {
-        useAsTitle: 'customerName',
+  slug: 'orders',
+  admin: {
+    useAsTitle: 'id',
+  },
+  access: {
+    create: ({ req }) => Boolean(req.user),
+    read: ({ req }) => {
+      if (!req.user) return false
+      return {
+        user: {
+          equals: req.user.id,
+        },
+      }
     },
-    access: {
-        create: ()=> true,
-        read: ()=> true,
-        update: ()=> true,
-        delete: ()=> true,
-    },
-    hooks: {
-        beforeChange: [
+    update: ({ req }) => Boolean(req.user),
+    delete: ({ req }) => Boolean(req.user),
+  },
+  hooks: {
+    beforeChange: [
+      async ({ data, req }) => {
+        // 1. Assign the Order to the Logged-In User
+        if (req.user) {
+          data.user = req.user.id
+        }
 
-            ({ data }) => {
-                for (const row of data.items || []) {
-                    if (row.quantity < 1) {
-                        throw new Error('Quantity must be at least 1')
-                    }
+        // 2. Calculate Total Price securely
+        let total = 0
+        
+        if (data.items && Array.isArray(data.items)) {
+          for (const row of data.items) {
+            if (row.quantity < 1) {
+                throw new Error('Quantity must be at least 1')
+            }
+
+            if (row.item) {
+                try {
+                  const itemDoc = await req.payload.findByID({
+                      collection: 'items',
+                      id: row.item,
+                  })
+                  
+                  if (itemDoc && typeof itemDoc.price === 'number') {
+                      total += itemDoc.price * row.quantity
+                  }
+                } catch (error) {
+                  // Ignore invalid items
                 }
-                return data
-            },
+            }
+          }
+        }
 
-            async ({ data, req }) => {
-                let total = 0
-
-                if (Array.isArray(data.items)) {
-                    for (const entry of data.items) {
-                        if (!entry.item || !entry.quantity) continue
-
-                        // Fetch item from Items collection
-                        const itemDoc = await req.payload.findByID({
-                        collection: 'items',
-                        id: entry.item,
-                        })
-
-                        total += itemDoc.price * entry.quantity
-                    }
-                }
-
-                data.totalPrice = total
-                return data
-            },
-        ],
-    },
-    fields: [
-        {
-            name: 'customerName',
-            label: 'Customer Name',
-            type: 'text',
-            required: true,
-        },
-        {
-            name: 'items',
-            label: 'Items',
-            type: 'array',
-            required: true,
-            fields: [
-                {
-                    name: 'item',
-                    label: 'Item',
-                    type: 'relationship',
-                    relationTo: 'items',
-                    required: true,
-                },
-                {
-                    name: 'quantity',
-                    label: 'Quantity',
-                    type: 'number',
-                    required: true,
-                    defaultValue: 1,
-                },
-            ],
-        },
-        {
-            name: 'totalPrice',
-            label: 'Total Price',
-            type: 'number',
-            min: 1,
-            admin: {
-                readOnly: true,
-                step: 1,
-            },
-        },
-        {
-            name: 'status',
-            label: 'Status',
-            type: 'select',
-            required: true,
-            defaultValue: 'Pending',
-            options: [
-                {label: 'Pending', value: 'Pending'},
-                {label: 'Paid', value: 'paid'},
-                {label: 'Delivered', value: 'delivered'},
-            ],
-        },
+        data.totalPrice = total
+        return data
+      },
     ],
+  },
+  fields: [
+    {
+      name: 'user',
+      label: 'Customer',
+      type: 'relationship',
+      relationTo: 'users',
+      required: true,
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'items',
+      label: 'Items',
+      type: 'array',
+      required: true,
+      fields: [
+        {
+          name: 'item',
+          label: 'Item',
+          type: 'relationship',
+          relationTo: 'items',
+          required: true,
+        },
+        {
+          name: 'quantity',
+          label: 'Quantity',
+          type: 'number',
+          min: 1,
+          defaultValue: 1,
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'totalPrice',
+      label: 'Total Price',
+      type: 'number',
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      defaultValue: 'pending',
+      options: [
+        { label: 'Pending', value: 'pending' },
+        { label: 'Paid', value: 'paid' },
+        { label: 'Delivered', value: 'delivered' },
+      ],
+    },
+  ],
 }
