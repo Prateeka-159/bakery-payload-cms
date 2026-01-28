@@ -15,9 +15,10 @@ export default function CheckoutForm() {
         phoneNumber: '',
         address: '',
         pincode: '',
+        paymentMethod: 'cash',
     })
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -64,7 +65,10 @@ export default function CheckoutForm() {
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-2xl shadow-xl border-2 border-yellow-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Delivery Details 🐝</h2>
+            <div className="space-y-2 mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 leading-tight">Fast Delivery 🐝</h2>
+                <p className="text-sm text-gray-500">Please provide your details for a smooth delivery.</p>
+            </div>
             
             {error && (
                 <div className="p-4 bg-red-50 text-red-600 rounded-lg text-sm font-medium">
@@ -73,63 +77,82 @@ export default function CheckoutForm() {
             )}
 
             <div className="space-y-4">
-                <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Receiver Name</label>
-                    <input
-                        type="text"
-                        name="customerName"
-                        required
-                        value={formData.customerName}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-yellow-400 focus:ring-0 transition-colors outline-none text-gray-900"
-                        placeholder="e.g. John Doe"
-                    />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Receiver Name</label>
+                        <input
+                            type="text"
+                            name="customerName"
+                            required
+                            value={formData.customerName}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-yellow-400 focus:ring-0 transition-colors outline-none text-gray-900 bg-gray-50"
+                            placeholder="Full Name"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Phone Number</label>
+                        <input
+                            type="tel"
+                            name="phoneNumber"
+                            required
+                            value={formData.phoneNumber}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-yellow-400 focus:ring-0 transition-colors outline-none text-gray-900 bg-gray-50"
+                            placeholder="Mobile No."
+                        />
+                    </div>
                 </div>
 
                 <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
-                    <input
-                        type="tel"
-                        name="phoneNumber"
-                        required
-                        value={formData.phoneNumber}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-yellow-400 focus:ring-0 transition-colors outline-none text-gray-900"
-                        placeholder="e.g. +1234567890"
-                    />
-                </div>
-
-                <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Delivery Address</label>
+                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Delivery Address</label>
                     <textarea
                         name="address"
                         required
-                        rows={3}
+                        rows={2}
                         value={formData.address}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-yellow-400 focus:ring-0 transition-colors outline-none resize-none text-gray-900"
-                        placeholder="Street address, Apartment, Suite, etc."
+                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-yellow-400 focus:ring-0 transition-colors outline-none resize-none text-gray-900 bg-gray-50"
+                        placeholder="House No, Building, Street Name..."
                     />
                 </div>
 
-                <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Pincode / ZIP Code</label>
-                    <input
-                        type="text"
-                        name="pincode"
-                        required
-                        value={formData.pincode}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-yellow-400 focus:ring-0 transition-colors outline-none text-gray-900"
-                        placeholder="e.g. 110001"
-                    />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Pincode</label>
+                        <input
+                            type="text"
+                            name="pincode"
+                            required
+                            value={formData.pincode}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-yellow-400 focus:ring-0 transition-colors outline-none text-gray-900 bg-gray-50"
+                            placeholder="6-digit ZIP"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Payment Type</label>
+                        <select
+                            name="paymentMethod"
+                            value={formData.paymentMethod}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-yellow-400 focus:ring-0 transition-colors outline-none text-gray-900 bg-gray-50 appearance-none cursor-pointer"
+                        >
+                            <option value="cash">Cash on Delivery</option>
+                            <option value="upi">UPI on Delivery</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
-            <div className="pt-4">
-                <p className="text-sm text-gray-500 mb-4 text-center italic">
-                    * Cash on Delivery (COD) only. Please keep exact change ready.
-                </p>
+            <div className="pt-4 space-y-4">
+                <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+                    <p className="text-xs text-yellow-800 leading-relaxed font-semibold">
+                        ⚠️ <span className="underline">Please avoid cancelling orders</span> unless it is a dire situation. Each cancellation wastes transportation costs and impacts our delivery bees. 🐝
+                    </p>
+                </div>
+
                 <button
                     type="submit"
                     disabled={loading}
@@ -138,7 +161,7 @@ export default function CheckoutForm() {
                     {loading ? (
                         <div className="w-6 h-6 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
                     ) : (
-                        <>Place Order (COD) 🛒</>
+                        <>Place Order 🛒</>
                     )}
                 </button>
             </div>

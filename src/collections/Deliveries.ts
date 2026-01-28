@@ -37,6 +37,18 @@ export const Deliveries: CollectionConfig = {
       required: true,
     },
     {
+      name: 'paymentMethod',
+      label: 'Payment Method',
+      type: 'select',
+      options: [
+        { label: 'Cash on Delivery', value: 'cash' },
+        { label: 'UPI on Delivery', value: 'upi' },
+      ],
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
       name: 'customerName',
       label: 'Receiver Name',
       type: 'text',

@@ -27,17 +27,21 @@ export default async function Footer(){
                     <div>
                         <h3 className="text-white text-lg font-semibold mb-4">Contact Us</h3>
                         <div className="space-y-3">
-                            <p className="flex items-center">
-                                <span className="mr-2">📍</span>
-                                {footer.address}
+                            <p className="flex items-center text-sm">
+                                <span className="mr-3">📍</span>
+                                {footer.address || "123 Honey Lane, Baker's Hill"}
                             </p>
-                            <p className="flex items-center">
-                                <span className="mr-2">📧</span>
-                                <a href={`mailto:${footer.email}`} className="hover:text-yellow-400 transition-colors">{footer.email}</a>
+                            <p className="flex items-center text-sm">
+                                <span className="mr-3">📧</span>
+                                <a href={`mailto:${footer.email || 'hello@honeybee.com'}`} className="hover:text-yellow-400 transition-colors">
+                                    {footer.email || 'hello@honeybee.com'}
+                                </a>
                             </p>
-                            <p className="flex items-center">
-                                <span className="mr-2">📞</span>
-                                <a href={`tel:${footer.phone}`} className="hover:text-yellow-400 transition-colors">{footer.phone}</a>
+                            <p className="flex items-center text-sm">
+                                <span className="mr-3">📞</span>
+                                <a href={`tel:${footer.phone || '+1 234 567 890'}`} className="hover:text-yellow-400 transition-colors">
+                                    {footer.phone || '+1 234 567 890'}
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -55,8 +59,8 @@ export default async function Footer(){
                     {/* Legal / Copyright */}
                     <div>
                         <h3 className="text-white text-lg font-semibold mb-4">Legal</h3>
-                         <p className="text-sm">
-                            {footer.copyright}
+                         <p className="text-sm italic leading-relaxed">
+                            {footer.copyright || 'Your daily dose of fresh baked happiness.'}
                         </p>
                         <p className="text-xs text-gray-500 mt-4">
                             Designed with ❤️ for Baking

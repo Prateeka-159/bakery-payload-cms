@@ -9,60 +9,44 @@ export const metadata: Metadata = {
 
 export default function CheckoutPage() {
     return (
-        <div className="min-h-screen bg-yellow-50">
-            
-            <main className="flex-grow container mx-auto px-4 py-16">
-                <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    {/* Left Column: Info */}
-                    <div className="space-y-8 py-8">
-                        <h1 className="text-4xl font-black text-gray-900 leading-tight">
-                            Almost there! <br />
-                            <span className="text-yellow-600">Secure your treats 🐝</span>
+        <div className="bg-yellow-50 overflow-x-hidden min-h-full">
+            <div className="container mx-auto px-4 py-20">
+                <div className="max-w-2xl mx-auto space-y-12">
+                    {/* Header Section */}
+                    <div className="text-center space-y-4">
+                        <h1 className="text-5xl font-black text-gray-900 tracking-tight">
+                            Checkout 🐝
                         </h1>
-                        
-                        <div className="space-y-4">
-                            <div className="flex items-start gap-4">
-                                <div className="bg-yellow-400 p-2 rounded-lg text-xl">🚚</div>
-                                <div>
-                                    <h3 className="font-bold text-gray-900">Doorstep Delivery</h3>
-                                    <p className="text-gray-600 text-sm">We deliver fresh to your specific location.</p>
-                                </div>
-                            </div>
-                            
-                            <div className="flex items-start gap-4">
-                                <div className="bg-yellow-400 p-2 rounded-lg text-xl">💵</div>
-                                <div>
-                                    <h3 className="font-bold text-gray-900">Cash on Delivery</h3>
-                                    <p className="text-gray-600 text-sm">Pay when your delicious order reaches you.</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-4">
-                                <div className="bg-yellow-400 p-2 rounded-lg text-xl">✨</div>
-                                <div>
-                                    <h3 className="font-bold text-gray-900">Fresh Guarantee</h3>
-                                    <p className="text-gray-600 text-sm">Every item is baked fresh just for you.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-2xl border-2 border-yellow-100 shadow-sm">
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                Our delivery bees are ready to swarm! Please provide your accurate phone number and pincode so we can reach you without delay.
-                            </p>
-                        </div>
+                        <p className="text-lg text-gray-600 max-w-md mx-auto">
+                            Almost ready! Just a few details and your fresh treats will be on their way.
+                        </p>
                     </div>
 
-                    {/* Right Column: Form */}
+                    {/* Form Section */}
                     <div className="relative">
-                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-yellow-200 rounded-full blur-3xl opacity-50"></div>
-                        <div className="relative z-10">
+                        {/* Decorative background blur */}
+                        <div className="absolute -top-6 -left-12 w-64 h-64 bg-yellow-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+                        <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-yellow-200 rounded-full blur-3xl opacity-30 animate-pulse delay-700"></div>
+                        
+                        <div className="relative z-10 transition-transform duration-500 hover:scale-[1.01]">
                             <CheckoutForm />
                         </div>
                     </div>
-                </div>
-            </main>
 
+                    {/* Trust Badges */}
+                    <div className="flex justify-center items-center gap-8 pt-8 border-t border-yellow-200">
+                        <div className="flex items-center gap-2 text-gray-500 text-sm font-medium">
+                            <span className="text-xl">🚚</span> Fast Delivery
+                        </div>
+                        <div className="flex items-center gap-2 text-gray-500 text-sm font-medium">
+                            <span className="text-xl">🛡️</span> Secure Order
+                        </div>
+                        <div className="flex items-center gap-2 text-gray-500 text-sm font-medium">
+                            <span className="text-xl">✨</span> Fresh Baked
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

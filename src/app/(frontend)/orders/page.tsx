@@ -62,6 +62,12 @@ export default async function OrdersPage() {
                         <p className="text-sm font-bold text-yellow-600">₹{order.totalPrice}</p>
                     </div>
                     <div>
+                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Payment</span>
+                        <p className="text-sm font-medium text-gray-900">
+                            {order.paymentMethod === 'upi' ? '📱 UPI' : '💵 Cash'}
+                        </p>
+                    </div>
+                    <div>
                         <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 
                         ${order.status === 'delivered' ? 'bg-green-100 text-green-800' : 
                             order.status === 'paid' ? 'bg-blue-100 text-blue-800' : 

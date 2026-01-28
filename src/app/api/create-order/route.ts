@@ -12,14 +12,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
     }
 
-    const { items, customerName, address, pincode, phoneNumber } = await req.json()
+    const { items, customerName, address, pincode, phoneNumber, paymentMethod } = await req.json()
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json({ message: 'Items are required' }, { status: 400 })
     }
 
-    if (!customerName || !address || !pincode || !phoneNumber) {
-      return NextResponse.json({ message: 'Delivery details are required' }, { status: 400 })
+    if (!customerName || !address || !pincode || !phoneNumber || !paymentMethod) {
+      return NextResponse.json({ message: 'Missing required delivery or payment information' }, { status: 400 })
     }
 
     const order = await payload.create({
@@ -34,6 +34,7 @@ export async function POST(req: Request) {
         address,
         pincode,
         phoneNumber,
+        paymentMethod,
         status: 'confirmed' as any, // Cast to any because types might be out of sync
       } as any,
     })
@@ -48,6 +49,7 @@ export async function POST(req: Request) {
         deliveryAddress: address,
         pincode,
         phoneNumber,
+        paymentMethod,
       } as any,
     })
 

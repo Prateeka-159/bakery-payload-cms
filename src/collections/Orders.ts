@@ -125,6 +125,17 @@ export const Orders: CollectionConfig = {
       required: true,
     },
     {
+      name: 'paymentMethod',
+      label: 'Payment Method',
+      type: 'select',
+      defaultValue: 'cash',
+      options: [
+        { label: 'Cash on Delivery', value: 'cash' },
+        { label: 'UPI on Delivery', value: 'upi' },
+      ],
+      required: true,
+    },
+    {
       name: 'status',
       label: 'Status',
       type: 'select',

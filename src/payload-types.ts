@@ -207,6 +207,7 @@ export interface Order {
   phoneNumber: string;
   address: string;
   pincode: string;
+  paymentMethod: 'cash' | 'upi';
   status?: ('pending' | 'confirmed' | 'paid' | 'delivered' | 'cancelled') | null;
   updatedAt: string;
   createdAt: string;
@@ -219,6 +220,7 @@ export interface Delivery {
   id: string;
   order: string | Order;
   deliveryStatus: 'pending' | 'out_for_delivery' | 'delivered' | 'failed';
+  paymentMethod?: ('cash' | 'upi') | null;
   customerName?: string | null;
   phoneNumber?: string | null;
   deliveryAddress?: string | null;
@@ -385,6 +387,7 @@ export interface OrdersSelect<T extends boolean = true> {
   phoneNumber?: T;
   address?: T;
   pincode?: T;
+  paymentMethod?: T;
   status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -396,6 +399,7 @@ export interface OrdersSelect<T extends boolean = true> {
 export interface DeliveriesSelect<T extends boolean = true> {
   order?: T;
   deliveryStatus?: T;
+  paymentMethod?: T;
   customerName?: T;
   phoneNumber?: T;
   deliveryAddress?: T;

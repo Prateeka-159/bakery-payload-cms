@@ -20,11 +20,13 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en">
       <body className={inter.className}>
         <CartProvider>
-          <main>
+          <div className="flex flex-col min-h-screen">
             <Header />
-            {children}
+            <main className="grow">
+              {children}
+            </main>
             <Footer />
-          </main>
+          </div>
         </CartProvider>
       </body>
     </html>
